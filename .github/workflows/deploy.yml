@@ -33,7 +33,7 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          sudo docker tag my-app:latest ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
+          sudo docker tag ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
       
       - name: Push Docker image to Docker Hub
         run: |
