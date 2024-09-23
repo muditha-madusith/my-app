@@ -46,30 +46,27 @@ jobs:
           # Run the new container on port 3000
           sudo docker run -d -p 3000:3000 --name my-app-container ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
 
-      - name: Set up Nginx for port forwarding (only run first time)
+      - name: Set up Nginx for port forwarding
         run: |
-          if ! grep -q "proxy_pass http://localhost:3000;" /etc/nginx/sites-available/default; then
-              sudo tee /etc/nginx/sites-available/default <<EOL
-              server {
-              listen 80;
-              server_name _;
-        
-              location / {
-                  proxy_pass http://localhost:3000;
-                  proxy_set_header Host \$host;
-                  proxy_set_header X-Real-IP \$remote_addr;
-                  proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-                  proxy_set_header X-Forwarded-Proto \$scheme;
-              }
-              }
-              EOL
-        
-              # Restart Nginx to apply the changes
-              sudo systemctl restart nginx
-          else
-              echo "Nginx is already set up. Skipping Nginx configuration."
-          fi
-        
+         if ! grep -q "proxy_pass http://localhost:3000;" /etc/nginx/sites-available/default; then
+          sudo tee /etc/nginx/sites-available/default <<EOL
+          server {
+            listen 80;
+            server_name _;
+
+            location / {
+              proxy_pass http://localhost:3000;
+              proxy_set_header Host \$host;
+              proxy_set_header X-Real-IP \$remote_addr;
+              proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto \$scheme;
+            }
+          }
+          EOL
 
           # Restart Nginx to apply the changes-
           sudo systemctl restart nginx
+          
+         else
+          echo "Nginx is already set up. Skipping Nginx configuration."
+         fi
