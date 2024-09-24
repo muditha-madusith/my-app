@@ -51,7 +51,7 @@ jobs:
           sudo tee /etc/nginx/sites-available/default << EOL
           server {
             listen 80;
-              server_name www.balloontrump.xyz;
+              server_name balloontrump.xyz www.balloontrump.xyz;
 
             location / {
               proxy_pass http://localhost:3000;
