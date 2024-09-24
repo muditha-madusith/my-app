@@ -37,7 +37,7 @@ export default function Home() {
           />
           <ol>
             <li>
-              Get started by editing <code>pages/index.tsx</code>.
+              Get started by editing.
             </li>
             <li>Save and see your changes instantly.</li>
           </ol>
