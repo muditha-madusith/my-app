@@ -63,6 +63,6 @@ jobs:
           }
           EOL
 
-          # Restart Nginx to apply the changes
+          # Restart Nginx to apply the changes-
           sudo systemctl restart nginx
 
